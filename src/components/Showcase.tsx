@@ -10,6 +10,7 @@ import SectionTitle from "./SectionTitle";
 import PhotoAlbum from "react-photo-album";
 import photos from "../data/photos";
 import Lightbox from "react-image-lightbox";
+import { useMediaQuery } from "react-responsive";
 
 const slides = photos.map(({ src, width, height, images }) => src);
 export interface ShowcaseProps {
@@ -19,9 +20,12 @@ export interface ShowcaseProps {
 export const ShowcaseIntro: React.SFC<ShowcaseProps> = (ShowcaseProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
-  const images: object[] = useCategorie("images", ShowcaseProps.limit, "test");
-  const [index, setIndex] = useState(-1);
 
+  const [index, setIndex] = useState(-1);
+  const isMobile = useMediaQuery({ query: "(max-width: 700px)" });
+
+  const images: object[] = useDatabase("images", false);
+  console.log("🚀 ~ file: ImagePanel.tsx:17 ~ ImagePanel ~ images", images);
   return (
     <>
       <section className="py-8 col-span-10 col-start-2 col-end-12">
@@ -29,7 +33,7 @@ export const ShowcaseIntro: React.SFC<ShowcaseProps> = (ShowcaseProps) => {
         <main className="py-8 gap-4 grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 w-full sm:w-11/12 lg:w-10/12 mx-auto">
           <PhotoAlbum
             photos={photos}
-            layout={"columns"}
+            layout={isMobile ? "rows" : "columns"}
             columns={4}
             onClick={(event, photo, index) => {
               setIndex(index);

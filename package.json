@@ -20,7 +20,8 @@
     "react-lazy-load-image-component": "^1.5.6",
     "react-photo-album": "^1.16.1",
     "react-spring": "^9.5.5",
-    "swiper": "^6.7.5"
+    "swiper": "^6.7.5",
+    "react-responsive": "^9.0.0-beta.10"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.0.0",

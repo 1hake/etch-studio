@@ -9,7 +9,7 @@ function HeroSection() {
           className="h-36 bg-dark-logo dark:bg-light-logo bg-no-repeat bg-center bg-contain "
         ></div>
         <h1 className=" text-2xl md:text-4xl mb-1 md:mb-3 text-black dark:text-white font-semibold">
-          ETCH STUDIO
+          ETCH STUDIO.
         </h1>
 
         {/* <a

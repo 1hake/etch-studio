@@ -5,6 +5,8 @@ import "react-image-lightbox/style.css";
 
 import Lightbox from "react-image-lightbox";
 import photos from "../data/photos";
+import useCategorie from "../hooks/useCategorie";
+import useDatabase from "../hooks/useDatabase";
 
 const slides = photos.map(({ src, width, height, images }) => src);
 
