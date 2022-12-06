@@ -5,7 +5,7 @@ import { VscCode } from "react-icons/vsc";
 
 export default [
   {
-    title: "Sculpture",
+    title: "Sculptures",
     icon: <MdWeb className="w-full h-full" />,
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi rerum quia harum eaque, quae laboriosam quisquam distinctio.",

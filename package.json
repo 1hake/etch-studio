@@ -1,5 +1,5 @@
 {
-  "name": "react-tailwind-portfolio",
+  "name": "etch-studio",
   "private": true,
   "version": "0.0.0",
   "scripts": {
@@ -10,6 +10,7 @@
   "dependencies": {
     "firebase": "^8.6.8",
     "framer-motion": "^4.1.17",
+    "fslightbox-react": "^1.6.2-2",
     "next": "11.0.0",
     "react": "^17.0.2",
     "react-burger-menu": "^3.0.8",

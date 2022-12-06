@@ -18,13 +18,10 @@ const ServiceItem = ({ title, icon, description, background }: Props) => {
       }}
       className={`transition rounded-md  hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 hover:-translate-y-2 transform duration-500 ease-in-out`}
     >
-      <div className="p-5 ">
-        <h1 className="font-semibold text-lg text-gray-600 dark:text-gray-200 mb-1">
-          {title}
+      <div className="p-5 h-44 flex flex-col justify-center text-center">
+        <h1 className="font-light text-4xl	  text-gray-600 dark:text-gray-200 mb-1">
+          {title.toLocaleUpperCase()}
         </h1>
-        <p className="text-md text-gray-600 dark:text-gray-300">
-          {description}
-        </p>
       </div>
     </div>
   );

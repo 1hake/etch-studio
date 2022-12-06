@@ -9,7 +9,9 @@ import useCategorie from "../hooks/useCategorie";
 import SectionTitle from "./SectionTitle";
 import PhotoAlbum from "react-photo-album";
 import photos from "../data/photos";
+import Lightbox from "react-image-lightbox";
 
+const slides = photos.map(({ src, width, height, images }) => src);
 export interface ShowcaseProps {
   limit: boolean;
 }
@@ -34,6 +36,19 @@ export const ShowcaseIntro: React.SFC<ShowcaseProps> = (ShowcaseProps) => {
             }}
           />
         </main>
+        {index >= 0 && (
+          <Lightbox
+            mainSrc={slides[index]}
+            nextSrc={slides[(index + 1) % slides.length]}
+            prevSrc={slides[(index + slides.length - 1) % slides.length]}
+            onCloseRequest={() => setIndex(-1)}
+            onMovePrevRequest={() =>
+              setIndex((index + slides.length - 1) % slides.length)
+            }
+            onMoveNextRequest={() => setIndex((index + 1) % slides.length)}
+            enableZoom={false}
+          />
+        )}
       </section>
     </>
   );

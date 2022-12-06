@@ -8,6 +8,7 @@ import Services from "./components/Services";
 import { ShowcaseIntro } from "./components/Showcase";
 import Works from "./components/Works";
 import { reveal as Menu } from "react-burger-menu";
+import "./hooks/init";
 
 function App() {
   const [theme, setTheme] = useState(null);
