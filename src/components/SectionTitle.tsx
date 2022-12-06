@@ -1,8 +1,13 @@
 import React from "react";
 
-function SectionTitle({ children, id }) {
+export interface Props {
+  children: React.ReactNode;
+  id: string;
+}
+
+export const SectionTitle = ({ children, id }: Props) => {
   return (
-    <div className="flex flex-row items-center my-4">
+    <div id={id} className="flex flex-row items-center my-4">
       <span className="w-full h-0.5 bg-gray-400 mr-4"></span>
       <h1 className="dark:text-white text-4xl font-light text-black">
         {children}
@@ -10,6 +15,4 @@ function SectionTitle({ children, id }) {
       <span className="w-full h-0.5 bg-gray-400 ml-4"></span>
     </div>
   );
-}
-
-export default SectionTitle;
+};

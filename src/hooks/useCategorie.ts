@@ -11,7 +11,7 @@ const useCategorie = (
   useEffect(() => {
     const unsubscribe = projectFirestore
       .collection(collection)
-      .where("category", "==", categorie)
+      .where("categories", "array-contains", categorie)
       .onSnapshot((snap) => {
         let documents: any = [];
         snap.forEach((doc: any) => {

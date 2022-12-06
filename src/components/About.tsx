@@ -1,9 +1,10 @@
 import React from "react";
 import myImg from "../images/hero.jpg";
-import SectionTitle from "./SectionTitle";
+import { SectionTitle } from "./SectionTitle";
+
 import { Socials } from "./Socials";
 
-function About() {
+export const About = () => {
   return (
     <div className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-20 py-12">
       <div className="w-full md:w-6/12">
@@ -30,6 +31,4 @@ function About() {
       />
     </div>
   );
-}
-
-export default About;
+};

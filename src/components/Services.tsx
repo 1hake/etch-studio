@@ -1,9 +1,9 @@
 import React from "react";
 import services from "../data/services";
-import SectionTitle from "./SectionTitle";
+import { SectionTitle } from "./SectionTitle";
 import ServiceItem from "./ServiceItem";
 
-function Services() {
+export const Services = () => {
   return (
     <div className="py-12">
       <SectionTitle>Works</SectionTitle>
@@ -15,11 +15,10 @@ function Services() {
             icon={service.icon}
             description={service.description}
             background={service.background}
+            navigation={service.navigation}
           />
         ))}
       </div>
     </div>
   );
-}
-
-export default Services;
+};

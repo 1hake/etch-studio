@@ -1,44 +1,76 @@
 import * as React from "react";
-import { useState } from "react";
-
-import useDatabase from "../hooks/useDatabase";
-
-import { ImageComponent } from "./ImageComponent";
-
-import useCategorie from "../hooks/useCategorie";
-import SectionTitle from "./SectionTitle";
-import PhotoAlbum from "react-photo-album";
-import photos from "../data/photos";
+import { useEffect, useState } from "react";
 import Lightbox from "react-image-lightbox";
+import PhotoAlbum from "react-photo-album";
 import { useMediaQuery } from "react-responsive";
 
-const slides = photos.map(({ src, width, height, images }) => src);
+import useDatabase from "../hooks/useDatabase";
+import { getDownloadUrl } from "../utils/firebaseUtils";
+import { SectionTitle } from "./SectionTitle";
+
 export interface ShowcaseProps {
   limit: boolean;
 }
 
-export const ShowcaseIntro: React.SFC<ShowcaseProps> = (ShowcaseProps) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+interface PhotoAlbumElement {
+  src: string;
+  width: number;
+  height: number;
+}
 
+interface FirebaseElement {
+  url: string;
+  width: number;
+  height: number;
+  images: string[];
+}
+
+const randomlySliceNElems = (arr, n) => {
+  const shuffled = arr.sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, n);
+};
+
+export const ShowcaseIntro: React.SFC<ShowcaseProps> = (ShowcaseProps) => {
+  const [images, setImages] = useState<PhotoAlbumElement[]>([]);
   const [index, setIndex] = useState(-1);
+  const elements: FirebaseElement[] = useDatabase("images", false);
+  const slides = images.map(({ src, width, height, images }) => src);
+
   const isMobile = useMediaQuery({ query: "(max-width: 700px)" });
 
-  const images: object[] = useDatabase("images", false);
-  console.log("🚀 ~ file: ImagePanel.tsx:17 ~ ImagePanel ~ images", images);
+  useEffect(() => {
+    if (elements.length > 0) {
+      const promises = elements.map((element: FirebaseElement) => {
+        return getDownloadUrl(element.url);
+      });
+      Promise.all(promises).then((urls) => {
+        const newImages = urls.map((url, index) => {
+          return {
+            src: url,
+            width: elements[index].width,
+            height: elements[index].height,
+          };
+        });
+        setImages(newImages);
+      });
+    }
+  }, [elements]);
+
   return (
     <>
       <section className="py-8 col-span-10 col-start-2 col-end-12">
         <SectionTitle id="showcase">Showcase</SectionTitle>
         <main className="py-8 gap-4 grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 w-full sm:w-11/12 lg:w-10/12 mx-auto">
-          <PhotoAlbum
-            photos={photos}
-            layout={isMobile ? "rows" : "columns"}
-            columns={4}
-            onClick={(event, photo, index) => {
-              setIndex(index);
-            }}
-          />
+          {images && (
+            <PhotoAlbum
+              photos={randomlySliceNElems(images, 5)}
+              layout={isMobile ? "rows" : "columns"}
+              columns={isMobile ? 1 : 4}
+              onClick={(event, photo, index) => {
+                // setIndex(index);
+              }}
+            />
+          )}
         </main>
         {index >= 0 && (
           <Lightbox

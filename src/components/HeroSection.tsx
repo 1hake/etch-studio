@@ -1,16 +1,19 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-function HeroSection() {
+export const HeroSection = () => {
   return (
-    <div id="hero" className="flex items-center justify-center flex-col py-20">
+    <div id="hero" className="flex items-center justify-center flex-col py-10">
       <div className="text-center">
-        <div
-          alt="logo"
-          className="h-36 bg-dark-logo dark:bg-light-logo bg-no-repeat bg-center bg-contain "
-        ></div>
-        <h1 className=" text-2xl md:text-4xl mb-1 md:mb-3 text-black dark:text-white font-semibold">
-          ETCH STUDIO.
-        </h1>
+        <Link to="/">
+          <div
+            alt="logo"
+            className="h-36 bg-dark-logo dark:bg-light-logo bg-no-repeat bg-center bg-contain "
+          ></div>
+          <h1 className=" text-2xl md:text-4xl mb-1 md:mb-3 text-black dark:text-white font-semibold">
+            ETCH STUDIO.
+          </h1>
+        </Link>
 
         {/* <a
           href="#works"
@@ -21,6 +24,4 @@ function HeroSection() {
       </div>
     </div>
   );
-}
-
-export default HeroSection;
+};

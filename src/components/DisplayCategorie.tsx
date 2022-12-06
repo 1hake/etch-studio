@@ -1,43 +1,76 @@
 import * as React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Lightbox from "react-image-lightbox";
+import PhotoAlbum from "react-photo-album";
+import { useMediaQuery } from "react-responsive";
+import useCategorie from "../hooks/useCategorie";
 
 import useDatabase from "../hooks/useDatabase";
-
-import { ImageComponent } from "./ImageComponent";
-
-import useCategorie from "../hooks/useCategorie";
-import SectionTitle from "./SectionTitle";
+import { getDownloadUrl } from "../utils/firebaseUtils";
+import { SectionTitle } from "./SectionTitle";
 
 export interface ShowcaseProps {
   limit: boolean;
+  categorie: string;
 }
 
-export const Showcase: React.SFC<ShowcaseProps> = (ShowcaseProps) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
-  const images: object[] = useCategorie("images", ShowcaseProps.limit, "test");
+interface PhotoAlbumElement {
+  src: string;
+  width: number;
+  height: number;
+}
+
+interface FirebaseElement {
+  url: string;
+  width: number;
+  height: number;
+  images: string[];
+}
+
+export const DisplayCategory: React.SFC<ShowcaseProps> = ({
+  limit,
+  category,
+}) => {
+  const [images, setImages] = useState<PhotoAlbumElement[]>([]);
+  const [index, setIndex] = useState(-1);
+  const elements: FirebaseElement[] = useCategorie("images", false, category);
+  console.log("🚀 ~ file: DisplayCategorie.tsx:37 ~ elements", elements);
+  const slides = images.map(({ src, width, height, images }) => src);
+
+  const isMobile = useMediaQuery({ query: "(max-width: 700px)" });
+
+  useEffect(() => {
+    if (elements.length > 0) {
+      const promises = elements.map((element: FirebaseElement) => {
+        return getDownloadUrl(element.url);
+      });
+      Promise.all(promises).then((urls) => {
+        const newImages = urls.map((url, index) => {
+          return {
+            src: url,
+            width: elements[index].width,
+            height: elements[index].height,
+          };
+        });
+        setImages(newImages);
+      });
+    }
+  }, [elements]);
+
+  if (images.length === 0) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
-      <section className="py-8 col-span-10 col-start-2 col-end-12">
-        <SectionTitle id="showcase">Showcase</SectionTitle>
-        <main className="py-8 gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full sm:w-11/12 lg:w-10/12 mx-auto">
-          {images.map((img: any, index: number) => {
-            return (
-              <ImageComponent
-                open={() => {
-                  setIsGalleryOpen(true);
-                  setCurrentIndex(index);
-                }}
-                key={index}
-                url={img.url}
-                label={img.label}
-                description={img.description}
-              />
-            );
-          })}
-        </main>
-      </section>
+      <PhotoAlbum
+        photos={images}
+        layout={isMobile ? "rows" : "columns"}
+        columns={4}
+        onClick={(event, photo, index) => {
+          setIndex(index);
+        }}
+      />
     </>
   );
 };
