@@ -1,11 +1,16 @@
 // layouit component
 
+import { dark } from "@mui/material/styles/createPalette";
 import React, { useEffect, useState } from "react";
 import { Footer } from "../components/Footer";
 import { HeroSection } from "../components/HeroSection";
 
 export const Layout = ({ children }) => {
-  const [theme, setTheme] = useState(false);
+  const [theme, setTheme] = useState<string>("dark");
+
+  useEffect(() => {
+    setTheme("light");
+  }, []);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {

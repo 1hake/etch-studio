@@ -1,8 +1,10 @@
 import firebase from "firebase/app";
-import "firebase/firebase-firestore";
-import "firebase/firebase-auth";
-import "firebase/storage";
-import "firebase/firestore";
+
+import { getStorage } from "firebase/storage";
+import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+
+import { initializeApp } from "firebase/app";
 
 const config = {
   apiKey: "AIzaSyB61YwiObV5b52BplKQB0vgkf_U0FdubMk",
@@ -14,18 +16,21 @@ const config = {
   appId: "1:1057961509983:web:67b8d457e84d5b4d",
 };
 
-var firebaseapp = null;
+const app = initializeApp(config);
+console.log("🚀 ~ file: firebase-config.ts:20 ~ app", app);
 
-if (!firebase.apps.length) {
-  firebaseapp = firebase.initializeApp(config);
-} else {
-  firebaseapp = firebase.app(); // if already initialized, use that one
-}
+// var firebaseapp = null;
 
-const projectStorage = firebaseapp.storage();
-const projectFirestore = firebaseapp.firestore();
-const timeStamp = firebase.firestore.FieldValue.serverTimestamp();
-const auth = firebase.auth();
-const persistance = firebase.auth.Auth.Persistence.NONE;
+// if (!firebase.apps.length) {
+//   firebaseapp = firebase.initializeApp(config);
+// } else {
+//   firebaseapp = firebase.app(); // if already initialized, use that one
+// }
 
-export { projectStorage, projectFirestore, timeStamp, auth, persistance };
+export const projectStorage = getStorage(app);
+export const projectFirestore = getFirestore(app);
+console.log(
+  "🚀 ~ file: firebase-config.ts:36 ~ projectFirestore",
+  projectFirestore
+);
+export const auth = getAuth(app);

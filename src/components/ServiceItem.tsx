@@ -1,5 +1,4 @@
 import React from "react";
-import { useMediaQuery } from "react-responsive";
 import { Link } from "react-router-dom";
 
 interface Props {
@@ -17,7 +16,6 @@ const ServiceItem = ({
   background,
   navigation,
 }: Props) => {
-  const isMobile = useMediaQuery({ query: "(max-width: 700px)" });
   return (
     <Link to={`categories/${navigation}`}>
       <div

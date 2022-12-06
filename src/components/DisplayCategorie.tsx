@@ -2,10 +2,10 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import Lightbox from "react-image-lightbox";
 import PhotoAlbum from "react-photo-album";
-import { useMediaQuery } from "react-responsive";
 import useCategorie from "../hooks/useCategorie";
 
 import useDatabase from "../hooks/useDatabase";
+import useMediaQuery from "../hooks/useMediaQuery";
 import { getDownloadUrl } from "../utils/firebaseUtils";
 import { SectionTitle } from "./SectionTitle";
 
@@ -37,7 +37,7 @@ export const DisplayCategory: React.SFC<ShowcaseProps> = ({
   console.log("🚀 ~ file: DisplayCategorie.tsx:37 ~ elements", elements);
   const slides = images.map(({ src, width, height, images }) => src);
 
-  const isMobile = useMediaQuery({ query: "(max-width: 700px)" });
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   useEffect(() => {
     if (elements.length > 0) {

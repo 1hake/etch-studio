@@ -37,7 +37,7 @@ export default [
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi rerum quia harum eaque, quae laboriosam quisquam distinctio.",
     background:
-      "https://firebasestorage.googleapis.com/v0/b/debt-666aa.appspot.com/o/deco.jpg?alt=media&token=dace22e6-897f-4626-98e5-e5855156605a",
+      "https://firebasestorage.googleapis.com/v0/b/debt-666aa.appspot.com/o/IMG_1672.png?alt=media&token=fd576e59-d66e-4ade-8f7e-d962dad1cd75",
     navigation: "deco",
   },
 ];

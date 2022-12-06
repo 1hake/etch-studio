@@ -2,9 +2,9 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import Lightbox from "react-image-lightbox";
 import PhotoAlbum from "react-photo-album";
-import { useMediaQuery } from "react-responsive";
 
 import useDatabase from "../hooks/useDatabase";
+import useMediaQuery from "../hooks/useMediaQuery";
 import { getDownloadUrl } from "../utils/firebaseUtils";
 import { SectionTitle } from "./SectionTitle";
 
@@ -36,8 +36,6 @@ export const ShowcaseIntro: React.SFC<ShowcaseProps> = (ShowcaseProps) => {
   const elements: FirebaseElement[] = useDatabase("images", false);
   const slides = images.map(({ src, width, height, images }) => src);
 
-  const isMobile = useMediaQuery({ query: "(max-width: 700px)" });
-
   useEffect(() => {
     if (elements.length > 0) {
       const promises = elements.map((element: FirebaseElement) => {
@@ -55,6 +53,8 @@ export const ShowcaseIntro: React.SFC<ShowcaseProps> = (ShowcaseProps) => {
       });
     }
   }, [elements]);
+
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   return (
     <>

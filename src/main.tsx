@@ -1,11 +1,10 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import "./styles/tailwind.css";
 import { Router } from "./router/Router";
 
-ReactDOM.render(
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <Router />
-  </React.StrictMode>,
-  document.getElementById("root")
+  </React.StrictMode>
 );

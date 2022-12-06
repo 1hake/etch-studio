@@ -34,7 +34,7 @@ const useStorage = (file: any) => {
           label: file.label,
           description: file.description,
           forShowcase: file.forShowcase,
-          createdAt: timeStamp,
+          createdAt: Date.now(),
           category: file.category,
         });
         console.log(url);
