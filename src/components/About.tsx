@@ -2,7 +2,6 @@ import React from "react";
 import myImg from "../images/hero.jpg";
 import { SectionTitle } from "./SectionTitle";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 import { Socials } from "./Socials";
@@ -11,7 +10,6 @@ export const About = () => {
   return (
     <div className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-20 py-12">
       <div className="w-full md:w-6/12">
-        <FontAwesomeIcon icon={faEnvelope} />
         <SectionTitle>Contact</SectionTitle>
         <p className="text-md text-gray-600 dark:text-gray-300">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores

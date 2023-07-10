@@ -7,6 +7,7 @@ import useCategorie from "../hooks/useCategorie";
 import useDatabase from "../hooks/useDatabase";
 import useMediaQuery from "../hooks/useMediaQuery";
 import { getDownloadUrl } from "../utils/firebaseUtils";
+import { MyDialog } from "./Panel";
 import { SectionTitle } from "./SectionTitle";
 
 export interface ShowcaseProps {
@@ -25,6 +26,8 @@ interface FirebaseElement {
   width: number;
   height: number;
   images: string[];
+  description: string;
+  name: string;
 }
 
 export const DisplayCategory: React.SFC<ShowcaseProps> = ({
@@ -32,9 +35,9 @@ export const DisplayCategory: React.SFC<ShowcaseProps> = ({
   category,
 }) => {
   const [images, setImages] = useState<PhotoAlbumElement[]>([]);
-  const [index, setIndex] = useState(-1);
+  const [index, setIndex] = useState<number>(-1);
   const elements: FirebaseElement[] = useCategorie("images", false, category);
-  console.log("🚀 ~ file: DisplayCategorie.tsx:37 ~ elements", elements);
+  console.log("🚀 ~ file: DisplayCategorie.tsx:38 ~ elements", elements);
   const slides = images.map(({ src, width, height, images }) => src);
 
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -50,6 +53,8 @@ export const DisplayCategory: React.SFC<ShowcaseProps> = ({
             src: url,
             width: elements[index].width,
             height: elements[index].height,
+            name: elements[index].name,
+            description: elements[index].description,
           };
         });
         setImages(newImages);
@@ -65,12 +70,18 @@ export const DisplayCategory: React.SFC<ShowcaseProps> = ({
     <>
       <PhotoAlbum
         photos={images}
-        layout={isMobile ? "rows" : "columns"}
-        columns={4}
+        layout={"columns"}
+        columns={isMobile ? 2 : 3}
         onClick={(event, photo, index) => {
-          setIndex(index);
+          console.log("🚀 ~ file: DisplayCategorie.tsx:82 ~ index", index);
+          setIndex(index + 1);
         }}
       />
+      <MyDialog
+        isOpen={index > 0}
+        currentPhoto={images[index - 1]}
+        onClose={() => setIndex(-1)}
+      ></MyDialog>
     </>
   );
 };

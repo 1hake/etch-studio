@@ -6,7 +6,6 @@ import { SectionTitle } from "../components/SectionTitle";
 
 export const Category = () => {
   const params = useParams();
-  console.log("🚀 ~ file: Category.tsx:7 ~ Category ~ params", params);
   if (!params) {
     return <div>404</div>;
   }
@@ -15,7 +14,7 @@ export const Category = () => {
       <SectionTitle id="showcase">
         {params.category?.toUpperCase()}
       </SectionTitle>
-      <main className="py-8 gap-4 grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 w-full sm:w-11/12 lg:w-10/12 mx-auto">
+      <main className="py-8  grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 w-full">
         <DisplayCategory
           limit={false}
           category={params.category}
