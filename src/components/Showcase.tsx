@@ -1,12 +1,13 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
-import PhotoAlbum from "react-photo-album";
 
+import { useEffect, useState } from "react";
+
+import { MyDialog } from "./Panel";
+import PhotoAlbum from "react-photo-album";
+import { SectionTitle } from "./SectionTitle";
+import { getDownloadUrl } from "../utils/firebaseUtils";
 import useDatabase from "../hooks/useDatabase";
 import useMediaQuery from "../hooks/useMediaQuery";
-import { getDownloadUrl } from "../utils/firebaseUtils";
-
-import { SectionTitle } from "./SectionTitle";
 
 export interface ShowcaseProps {
   limit: boolean;
@@ -67,7 +68,7 @@ export const ShowcaseIntro: React.SFC<ShowcaseProps> = (ShowcaseProps) => {
               layout={"columns"}
               columns={isMobile ? 2 : 3}
               onClick={(event, photo, index) => {
-                // setIndex(index);
+                // setIndex(index + 1);
               }}
             />
           )}

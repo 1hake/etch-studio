@@ -1,14 +1,15 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
-import Lightbox from "react-image-lightbox";
-import PhotoAlbum from "react-photo-album";
-import useCategorie from "../hooks/useCategorie";
 
+import { useEffect, useState } from "react";
+
+import Lightbox from "react-image-lightbox";
+import { MyDialog } from "./Panel";
+import PhotoAlbum from "react-photo-album";
+import { SectionTitle } from "./SectionTitle";
+import { getDownloadUrl } from "../utils/firebaseUtils";
+import useCategorie from "../hooks/useCategorie";
 import useDatabase from "../hooks/useDatabase";
 import useMediaQuery from "../hooks/useMediaQuery";
-import { getDownloadUrl } from "../utils/firebaseUtils";
-import { MyDialog } from "./Panel";
-import { SectionTitle } from "./SectionTitle";
 
 export interface ShowcaseProps {
   limit: boolean;
@@ -28,6 +29,8 @@ interface FirebaseElement {
   images: string[];
   description: string;
   name: string;
+  related_images: string[];
+  gif: string;
 }
 
 export const DisplayCategory: React.SFC<ShowcaseProps> = ({
@@ -48,6 +51,7 @@ export const DisplayCategory: React.SFC<ShowcaseProps> = ({
         return getDownloadUrl(element.url);
       });
       Promise.all(promises).then((urls) => {
+        console.log("🚀 ~ file: DisplayCategorie.tsx:53 ~ Promise.all ~ urls:", urls)
         const newImages = urls.map((url, index) => {
           return {
             src: url,
@@ -55,6 +59,8 @@ export const DisplayCategory: React.SFC<ShowcaseProps> = ({
             height: elements[index].height,
             name: elements[index].name,
             description: elements[index].description,
+            related_images: elements[index].related_images,
+            gif: elements[index].gif,
           };
         });
         setImages(newImages);
@@ -73,7 +79,6 @@ export const DisplayCategory: React.SFC<ShowcaseProps> = ({
         layout={"columns"}
         columns={isMobile ? 2 : 3}
         onClick={(event, photo, index) => {
-          console.log("🚀 ~ file: DisplayCategorie.tsx:82 ~ index", index);
           setIndex(index + 1);
         }}
       />

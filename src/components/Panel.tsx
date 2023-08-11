@@ -1,5 +1,10 @@
-import React, { useState, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import React, { Fragment, useState } from "react";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { GifReader } from "./GifReader";
+import RelatedPhotosLightBox from "./Lightbox";
+import { faClose } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
   isOpen: boolean;
@@ -8,7 +13,6 @@ interface Props {
 }
 
 export const MyDialog = ({ isOpen, currentPhoto, onClose }: Props) => {
-  console.log("", isOpen);
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10 h-96" onClose={onClose}>
@@ -35,25 +39,41 @@ export const MyDialog = ({ isOpen, currentPhoto, onClose }: Props) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="select-none w-full max-w-3xl transform overflow-hidden rounded-2xl bg-white p-12 text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className="flex flex-col items-end select-none  max-w-5xl transform overflow-hidden rounded-2xl bg-white  text-left align-middle shadow-xl transition-all">
+                <div onClick={onClose} className="absolute top-0 mt-4 mr-4 flex justify-center items-center  rounded-full bg-gray-300 text-black  w-10 h-10 mb-4">
+                  <FontAwesomeIcon icon={faClose} />
+                </div>
+
                 {currentPhoto && (
-                  <div className="flex flex-col lg:flex-row gap-10 items-center">
-                    <img src={currentPhoto?.src} className="max-h-96"></img>
-                    <div className="flex flex-col justify-start items-start">
-                      <h1 className=" text-4xl font-light text-black mb-3">
-                        {currentPhoto?.name}
-                      </h1>
-                      <p className="text-md text-black">
-                        {currentPhoto?.description}
-                      </p>
+                  <>
+                    <div className="flex flex-col items-start w-full">
+                      {/* <img src={currentPhoto?.src} className=""></img> */}
+                      <div className="flex flex-col justify-start items-start mb-4 p-2 mt-4">
+                        <h1 className="lg:text-8xl text-8xl font-bold text-black mb-2 mt-2 ">
+                          {currentPhoto?.name}
+                        </h1>
+                        <p className="text-md text-black">
+                          {currentPhoto?.description}
+                        </p>
+                      </div>
+                      <GifReader path={currentPhoto?.gif} />
+
+
                     </div>
-                  </div>
+                    <div className="flex flex-col justify-center items-center mt-8 w-full mb-8">
+
+                      {currentPhoto?.related_images?.length > 0 &&
+                        <RelatedPhotosLightBox
+                          currentPhoto={currentPhoto}
+                        />}
+                    </div>
+                  </>
                 )}
               </Dialog.Panel>
             </Transition.Child>
           </div>
         </div>
       </Dialog>
-    </Transition>
+    </Transition >
   );
 };
