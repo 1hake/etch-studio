@@ -18,7 +18,7 @@ export const GifReader = ({ path }) => {
 
     return (
 
-        <img className="" src={url} alt="gif" />
+        <img className="w-full" src={url} alt="gif" />
 
     );
 }

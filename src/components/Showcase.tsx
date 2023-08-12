@@ -48,6 +48,8 @@ export const ShowcaseIntro: React.SFC<ShowcaseProps> = (ShowcaseProps) => {
             src: url,
             width: elements[index].width,
             height: elements[index].height,
+            name: elements[index].name,
+            description: elements[index].description,
           };
         });
         setImages(newImages);
@@ -59,20 +61,27 @@ export const ShowcaseIntro: React.SFC<ShowcaseProps> = (ShowcaseProps) => {
 
   return (
     <>
-      <section className="py-8 col-span-10 col-start-2 col-end-12">
+      <section className="py-4 col-span-10 col-start-2 col-end-12">
         <SectionTitle id="showcase">Showcase</SectionTitle>
-        <main className="py-8  grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 w-full ">
+        <main className=" grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 w-full ">
           {images && (
             <PhotoAlbum
               photos={randomlySliceNElems(images, 5)}
               layout={"columns"}
               columns={isMobile ? 2 : 3}
               onClick={(event, photo, index) => {
-                // setIndex(index + 1);
+                console.log("clicked", photo);
+
               }}
             />
           )}
         </main>
+        <MyDialog
+          isOpen={index > 0}
+          currentPhoto={images[index - 1]}
+          onClose={() => setIndex(-1)}
+        ></MyDialog>
+
       </section>
     </>
   );

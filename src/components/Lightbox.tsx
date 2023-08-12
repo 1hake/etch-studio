@@ -21,10 +21,12 @@ export default function RelatedPhotosLightBox({ currentPhoto }) {
     }, [currentPhoto]);
 
     return (
-        <div className="flex w-full justify-center">
-            <button className="rounded-full bg-gray-800 text-white px-4 py-2"
+        <div className="flex w-full justify-center p-4 bg-black">
+            <button className="font-bold w-full h-max text-white px-4 py-2 text-2xl uppercase"
                 type="button" onClick={() => setOpen(true)}>
-                Voir {currentPhoto?.related_images?.length} autres photos
+                <h1>
+                    Voir {currentPhoto?.related_images?.length} autres photos
+                </h1>
             </button>
 
             <Lightbox

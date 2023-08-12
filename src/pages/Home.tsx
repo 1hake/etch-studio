@@ -8,13 +8,14 @@ import { Footer } from "../components/Footer";
 import { HeroSection } from "../components/HeroSection";
 import { Services } from "../components/Services";
 import { ShowcaseIntro } from "../components/Showcase";
+import Works from "../components/Works";
 
 export const Home = () => {
   return (
     <>
       {/* <Showcase limit={true} /> */}
-      <ShowcaseIntro></ShowcaseIntro>
       <Services />
+      <ShowcaseIntro></ShowcaseIntro>
       {/* <Works /> */}
       {/* <ImagePanel /> */}
       <About />

@@ -16,3 +16,5 @@ export const SectionTitle = ({ children, id }: Props) => {
     </div>
   );
 };
+
+

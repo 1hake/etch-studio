@@ -51,7 +51,6 @@ export const DisplayCategory: React.SFC<ShowcaseProps> = ({
         return getDownloadUrl(element.url);
       });
       Promise.all(promises).then((urls) => {
-        console.log("🚀 ~ file: DisplayCategorie.tsx:53 ~ Promise.all ~ urls:", urls)
         const newImages = urls.map((url, index) => {
           return {
             src: url,
