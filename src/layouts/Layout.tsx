@@ -1,7 +1,5 @@
-// layouit component
+import { useEffect, useState } from "react";
 
-import { dark } from "@mui/material/styles/createPalette";
-import React, { useEffect, useState } from "react";
 import { Footer } from "../components/Footer";
 import { HeroSection } from "../components/HeroSection";
 
@@ -41,7 +39,7 @@ export const Layout = ({ children }) => {
       >
         {theme === "dark" ? "🌙" : "🌞"}
       </button>
-      <div className="bg-white dark:bg-slate-900 min-h-screen font-inter transition duration-1000 ease-in-out">
+      <div className="bg-white dark:bg-black min-h-screen font-inter transition duration-1000 ease-in-out">
         <div className="max-w-5xl w-11/12 mx-auto">
           <HeroSection />
           {children}

@@ -7,10 +7,10 @@ export const Footer = () => {
         ETCH STUDIO
       </a>
       <a
-        href="mailto:colin.champdavoine@gmail.com"
+        href="mailto:atelier.etch@gmail.com"
         className="text-sm md:text-md hover:text-indigo-500"
       >
-        tonmail@gmail.com
+        atelier.etch@gmail.com
       </a>
       <p className="text-xs mt-2 text-gray-500">
         © Colin Champdavoine 2021. All rights reserved.

@@ -1,25 +1,15 @@
-import * as React from "react";
-
-import { useEffect, useState } from "react";
-
-import Lightbox from "react-image-lightbox";
-import { MyDialog } from "./Panel";
+import { useCallback, useEffect, useState } from "react";
 import PhotoAlbum from "react-photo-album";
-import { SectionTitle } from "./SectionTitle";
-import { getDownloadUrl } from "../utils/firebaseUtils";
+
 import useCategorie from "../hooks/useCategorie";
-import useDatabase from "../hooks/useDatabase";
 import useMediaQuery from "../hooks/useMediaQuery";
+import { Image } from "../types/types";
+import { getDownloadUrl } from "../utils/firebaseUtils";
+import { MyDialog } from "./Panel";
 
 export interface ShowcaseProps {
   limit: boolean;
-  categorie: string;
-}
-
-interface PhotoAlbumElement {
-  src: string;
-  width: number;
-  height: number;
+  category: string;
 }
 
 interface FirebaseElement {
@@ -31,41 +21,49 @@ interface FirebaseElement {
   name: string;
   related_images: string[];
   gif: string;
+  materials: string[];
+  size: string;
+  price: number;
 }
 
-export const DisplayCategory: React.SFC<ShowcaseProps> = ({
-  limit,
-  category,
-}) => {
-  const [images, setImages] = useState<PhotoAlbumElement[]>([]);
-  const [index, setIndex] = useState<number>(-1);
+export const DisplayCategory = ({ limit, category }: ShowcaseProps) => {
+  const [images, setImages] = useState<Image[]>([]);
+  const [index, setIndex] = useState<number | null>(null);
   const elements: FirebaseElement[] = useCategorie("images", false, category);
-  console.log("🚀 ~ file: DisplayCategorie.tsx:38 ~ elements", elements);
-  const slides = images.map(({ src, width, height, images }) => src);
-
   const isMobile = useMediaQuery("(max-width: 768px)");
 
   useEffect(() => {
-    if (elements.length > 0) {
-      const promises = elements.map((element: FirebaseElement) => {
-        return getDownloadUrl(element.url);
-      });
-      Promise.all(promises).then((urls) => {
-        const newImages = urls.map((url, index) => {
-          return {
-            src: url,
+    const fetchImages = async () => {
+      try {
+        if (elements.length > 0) {
+          const urls = await Promise.all(
+            elements.map((element) => getDownloadUrl(element.url))
+          );
+          const newImages = urls.map((url, index) => ({
+            url: url,
             width: elements[index].width,
             height: elements[index].height,
             name: elements[index].name,
             description: elements[index].description,
             related_images: elements[index].related_images,
             gif: elements[index].gif,
-          };
-        });
-        setImages(newImages);
-      });
-    }
+            materials: elements[index].materials,
+            size: elements[index].size,
+            price: elements[index].price,
+          }));
+          setImages(newImages);
+        }
+      } catch (error) {
+        console.error("Error fetching image URLs:", error);
+      }
+    };
+
+    fetchImages();
   }, [elements]);
+
+  const handleImageClick = useCallback((index: number) => {
+    setIndex(index);
+  }, []);
 
   if (images.length === 0) {
     return <div>Loading...</div>;
@@ -75,17 +73,38 @@ export const DisplayCategory: React.SFC<ShowcaseProps> = ({
     <>
       <PhotoAlbum
         photos={images}
-        layout={"columns"}
+        layout="columns"
         columns={isMobile ? 2 : 3}
-        onClick={(event, photo, index) => {
-          setIndex(index + 1);
-        }}
+        renderPhoto={({ photo, layout, wrapperStyle }) => (
+          <div
+            style={{
+              ...wrapperStyle,
+              borderRadius: "0.5rem",
+              overflow: "hidden",
+            }}
+            className="bg-gray-100 shadow-md"
+          >
+            <img
+              onClick={() => handleImageClick(layout.index)}
+              src={photo.url}
+              alt={photo.name || "Image"}
+              style={{
+                width: layout.width,
+                height: layout.height,
+                objectFit: "cover",
+              }}
+              className="rounded-lg cursor-pointer"
+            />
+          </div>
+        )}
       />
-      <MyDialog
-        isOpen={index > 0}
-        currentPhoto={images[index - 1]}
-        onClose={() => setIndex(-1)}
-      ></MyDialog>
+      {index !== null && index >= 0 && index < images.length && (
+        <MyDialog
+          isOpen={index !== null}
+          currentPhoto={images[index]}
+          onClose={() => setIndex(null)}
+        />
+      )}
     </>
   );
 };

@@ -1,13 +1,14 @@
 import "yet-another-react-lightbox/styles.css";
 
 import * as React from "react";
-
 import Lightbox from "yet-another-react-lightbox";
+
 import { getDownloadUrl } from "../utils/firebaseUtils";
 
 export default function RelatedPhotosLightBox({ currentPhoto }) {
     const [open, setOpen] = React.useState(false);
     const [images, setImages] = React.useState([]);
+    const [selectedImage, setSelectedImage] = React.useState(null);
 
     React.useEffect(() => {
         if (currentPhoto?.related_images?.length > 0) {
@@ -20,23 +21,26 @@ export default function RelatedPhotosLightBox({ currentPhoto }) {
         }
     }, [currentPhoto]);
 
+    const handleThumbnailClick = (image) => {
+        setSelectedImage(image);
+        setOpen(true);
+    }
+
     return (
-        <div className="flex w-full justify-center p-4 bg-black">
-            <button className="font-bold w-full h-max text-white px-4 py-2 text-2xl uppercase"
-                type="button" onClick={() => setOpen(true)}>
-                <h1>
-                    Voir {currentPhoto?.related_images?.length} autres photos
-                </h1>
-            </button>
+        <div className="flex flex-col w-full p-4 bg-white">
+            <div className="flex justify-start flex-wrap gap-2">
+                {images && images.map((image, index) => (
+                    <img key={index} src={image} alt={`thumbnail ${index}`} className="rounded-md w-16 h-16 object-cover m-auto" onClick={() => handleThumbnailClick(image)} /> // display all thumbnails
+                ))}
+            </div>
 
             <Lightbox
                 open={open}
-                close={() => setOpen(false)}
-                slides={images.map((image) => {
-                    return {
-                        src: image,
-                    };
-                })}
+                close={() => {
+                    setOpen(false);
+                    setSelectedImage(null);
+                }}
+                slides={selectedImage ? [{ src: selectedImage }] : []}
             />
         </div>
     );
