@@ -29,7 +29,7 @@ const ServiceItem = ({
       >
         <div className="bg-black bg-opacity-50 rounded-md hover:bg-opacity-0 transition ease-in-out duration-500 h-full">
           <div className="p-5 flex flex-col justify-center text-center h-full">
-            <h1 className="font-bold text-2xl text-white mb-1">
+            <h1 className="font-bold text-xl text-white break- mb-1">
               {title.toLocaleUpperCase()}
             </h1>
           </div>

@@ -79,15 +79,6 @@ export const MyDialog = ({ isOpen, currentPhoto, onClose }: Props) => {
                         )}
 
                         <div className="space-y-4">
-                          {currentPhoto?.price !== undefined && (
-                            <div className="flex items-center space-x-2">
-                                                            <FontAwesomeIcon icon={faEuroSign} />
-
-                              <p className="text-md font-medium text-black">
-                                <strong>Prix:</strong> {currentPhoto.price} €
-                              </p>
-                            </div>
-                          )}
                           {currentPhoto?.materials && (
                             <div className="flex items-center space-x-2">
                               <FontAwesomeIcon icon={faCubes} />
@@ -96,11 +87,20 @@ export const MyDialog = ({ isOpen, currentPhoto, onClose }: Props) => {
                               </p>
                             </div>
                           )}
-                          {currentPhoto?.size && (
+                              {currentPhoto?.size && (
+                                <div className="flex items-center space-x-2">
+                                  <FontAwesomeIcon icon={faRuler} />
+                                  <p className="text-md font-medium text-black">
+                                    <strong>Dimensions:</strong> {currentPhoto.size}
+                                  </p>
+                                </div>
+                              )}
+                          {currentPhoto?.price !== undefined && (
                             <div className="flex items-center space-x-2">
-                              <FontAwesomeIcon icon={faRuler} />
+                              <FontAwesomeIcon icon={faEuroSign} />
+
                               <p className="text-md font-medium text-black">
-                                <strong>Taille:</strong> {currentPhoto.size}
+                                <strong>Prix:</strong> {currentPhoto.price} €
                               </p>
                             </div>
                           )}

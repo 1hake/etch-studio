@@ -22,7 +22,7 @@ export default [
     navigation: "lampes",
   },
   {
-    title: "Objets/Décoration",
+    title: "Objets Décoration",
     icon: <VscCode className="w-full h-full" />,
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi rerum quia harum eaque, quae laboriosam quisquam distinctio.",
