@@ -17,8 +17,7 @@ export const MyDialog = ({ isOpen, currentPhoto, onClose }: Props) => {
   const [customerName, setCustomerName] = useState("");
   const [address, setAddress] = useState("");
 
-  const handleCloseClick = (event: React.MouseEvent) => {
-    event.stopPropagation();
+  const handleCloseClick = (event) => {
     onClose();
   };
 

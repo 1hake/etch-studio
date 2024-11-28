@@ -1,6 +1,5 @@
-import React from "react";
-import useCategorie from "../hooks/useCategorie";
 import { useParams } from "react-router-dom";
+
 import { DisplayCategory } from "../components/DisplayCategorie";
 import { SectionTitle } from "../components/SectionTitle";
 

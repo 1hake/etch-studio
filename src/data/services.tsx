@@ -28,7 +28,7 @@ export default [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi rerum quia harum eaque, quae laboriosam quisquam distinctio.",
     background:
       "https://firebasestorage.googleapis.com/v0/b/debt-666aa.appspot.com/o/objets.jpg?alt=media&token=4cca4155-696c-4352-8a17-8b7712aa7f52",
-    navigation: "objets-deco",
+    navigation: "objet-deco",
   },
   {
     title: "Décoration murale",
