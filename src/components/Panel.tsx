@@ -4,6 +4,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 
 import { Image } from "../types/types";
+import Button from "./Button";
 import { GifReader } from "./GifReader";
 
 interface Props {
@@ -114,12 +115,11 @@ export const MyDialog = ({ isOpen, currentPhoto, onClose }: Props) => {
                           <div className="px-6 pb-6 w-full">
 
                        {!isPurchasing && (
-                         <button
+                         <Button
                          onClick={() => setIsPurchasing(true)}
-                         className="p-3 bg-blue-600 text-white rounded-md w-full"
                          >
                             Acheter
-                          </button>
+                          </Button>
                         )}
 
                         {/* Show input fields and "Confirmer" button */}
@@ -138,12 +138,12 @@ export const MyDialog = ({ isOpen, currentPhoto, onClose }: Props) => {
                               onChange={(e) => setAddress(e.target.value)}
                               className="p-2 border rounded-md"
                               />
-                            <a
-                              href={generateMailtoLink()}
-                              className="p-3 bg-green-600 text-white rounded-md text-center"
+                            <Button
+                              onClick={() => generateMailtoLink()}
+                              className=" bg-green-600 text-white"
                               >
                               Confirmer
-                            </a>
+                            </Button>
                           </div>
                         )}
                         </div>
