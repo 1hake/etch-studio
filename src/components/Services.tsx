@@ -1,19 +1,30 @@
-import services from "../data/services";
+import useCategoriesHeader from "../hooks/useCategoriesHeader";
 import { SectionTitle } from "./SectionTitle";
 import ServiceItem from "./ServiceItem";
 
 export const Services = () => {
+  const { headers, loading, error } = useCategoriesHeader();
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
+
   return (
     <div className="">
       <SectionTitle>Works</SectionTitle>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-        {services.map((service) => (
+        {headers.map((header) => (
           <ServiceItem
-            title={service.title}
-            icon={service.icon}
-            description={service.description}
-            background={service.background}
-            navigation={service.navigation}
+            key={header.category[0]}
+            title={header.category[0]}
+            icon={header.header_image} // Assuming the icon can be represented by the image URL
+            description={`Explore the works in ${header.category}`} // Placeholder description
+            background={header.header_image} // Use the resolved download URL for the background
+            navigation={`${header.category}`} // Navigate to category details
           />
         ))}
       </div>
