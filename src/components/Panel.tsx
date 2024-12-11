@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 
+import useGeneralInfo from "../hooks/useGeneralInfo";
 import { Image } from "../types/types";
 import Button from "./Button";
 import { GifReader } from "./GifReader";
@@ -17,6 +18,10 @@ export const MyDialog = ({ isOpen, currentPhoto, onClose }: Props) => {
   const [isPurchasing, setIsPurchasing] = useState(false);
   const [customerName, setCustomerName] = useState("");
   const [address, setAddress] = useState("");
+  const [customMessage, setCustomMessage] = useState("");
+  const { generalInfo, loading, error } = useGeneralInfo("A8ZgN0HqwSPofv5qL1JN"); 
+  console.log("🚀 ~ MyDialog ~ generalInfo:", generalInfo)
+
 
   const handleCloseClick = (event) => {
     onClose();
@@ -24,8 +29,8 @@ export const MyDialog = ({ isOpen, currentPhoto, onClose }: Props) => {
 
   const generateMailtoLink = () => {
     const subject = `Commande pour ${currentPhoto?.name}`;
-    const body = `Bonjour,\n\nJe souhaite commander le produit suivant :\n\nNom du produit : ${currentPhoto?.name}\nPrix : ${currentPhoto?.price} €\n\nNom du client : ${customerName}\nAdresse de livraison : ${address}\n\nMerci.`;
-    return `mailto:atelier.etch@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const body = `Bonjour,\n\nJe souhaite commander le produit suivant :\n\nNom du produit : ${currentPhoto?.name}\nPrix : ${currentPhoto?.price} €\n\nNom du client : ${customerName}\nAdresse de livraison : ${address}\n\nMessage : ${customMessage}\n\nMerci.`;
+    return `mailto:${generalInfo.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
   return (
@@ -107,22 +112,21 @@ export const MyDialog = ({ isOpen, currentPhoto, onClose }: Props) => {
                         </div>
 
                           </div>
-                        {/* Show "Acheter" button initially */}
                        
-                         {currentPhoto?.gif ?
-                        <GifReader path={currentPhoto?.gif} /> : <img src={currentPhoto?.url} className=""></img>
-                      }
-                          <div className="px-6 pb-6 w-full">
+                        {currentPhoto?.gif ?
+                          <GifReader path={currentPhoto?.gif} /> : <img src={currentPhoto?.url} className=""></img>
+                        }
+                        
+                        <div className="px-6 pb-6 w-full">
 
-                       {!isPurchasing && (
-                         <Button
-                         onClick={() => setIsPurchasing(true)}
-                         >
+                        {!isPurchasing && (
+                          <Button
+                            onClick={() => setIsPurchasing(true)}
+                          >
                             Acheter
                           </Button>
                         )}
 
-                        {/* Show input fields and "Confirmer" button */}
                         {isPurchasing && (
                           <div className="flex flex-col space-y-4">
                             <input
@@ -131,17 +135,23 @@ export const MyDialog = ({ isOpen, currentPhoto, onClose }: Props) => {
                               value={customerName}
                               onChange={(e) => setCustomerName(e.target.value)}
                               className="p-2 border rounded-md"
-                              />
+                            />
                             <textarea
                               placeholder="Adresse de livraison"
                               value={address}
                               onChange={(e) => setAddress(e.target.value)}
                               className="p-2 border rounded-md"
-                              />
+                            />
+                            <textarea
+                              placeholder="Message (optionnel)"
+                              value={customMessage}
+                              onChange={(e) => setCustomMessage(e.target.value)}
+                              className="p-2 border rounded-md"
+                            />
                             <Button
-                              onClick={() => generateMailtoLink()}
-                              className=" bg-green-600 text-white"
-                              >
+                              onClick={() => window.location.href = generateMailtoLink()}
+                              className="bg-white text-black"
+                            >
                               Confirmer
                             </Button>
                           </div>

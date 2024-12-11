@@ -4,9 +4,10 @@ import ServiceItem from "./ServiceItem";
 
 export const Services = () => {
   const { headers, loading, error } = useCategoriesHeader();
+  console.log("🚀 ~ Services ~ headers:", headers)
 
   if (loading) {
-    return <p>Loading...</p>;
+    return null
   }
 
   if (error) {
@@ -19,8 +20,7 @@ export const Services = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
         {headers.map((header) => (
           <ServiceItem
-            key={header.category[0]}
-            title={header.category[0]}
+            title={header.name}
             icon={header.header_image} // Assuming the icon can be represented by the image URL
             description={`Explore the works in ${header.category}`} // Placeholder description
             background={header.header_image} // Use the resolved download URL for the background

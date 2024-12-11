@@ -66,7 +66,7 @@ export const DisplayCategory = ({ limit, category }: ShowcaseProps) => {
   }, []);
 
   if (images.length === 0) {
-    return <div>Loading...</div>;
+    return null
   }
 
   return (

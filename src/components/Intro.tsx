@@ -6,7 +6,7 @@ export const Intro: React.FC = () => {
   const { generalInfo, loading, error } = useGeneralInfo("A8ZgN0HqwSPofv5qL1JN"); 
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <></>
   }
 
   if (error) {

@@ -6,7 +6,8 @@ import { getDownloadUrl } from "../utils/firebaseUtils";
 
 interface CategoryHeader {
   category: string;
-  header_image: string; // This will store the download URL
+  header_image: string; 
+  name: string
 }
 
 const useCategoriesHeader = () => {
@@ -28,6 +29,7 @@ const useCategoriesHeader = () => {
           fetchedHeaders.push({
             category: data.category,
             header_image: downloadUrl,
+            name: data.name
           });
         }
 
