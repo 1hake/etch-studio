@@ -28,7 +28,7 @@ interface FirebaseElement {
 
 export const DisplayCategory = ({ limit, category }: ShowcaseProps) => {
   const [images, setImages] = useState<Image[]>([]);
-  const [index, setIndex] = useState<number | null>(null);
+  const [index, setIndex] = useState<number>(null);
   const elements: FirebaseElement[] = useCategorie("images", false, category);
   const isMobile = useMediaQuery("(max-width: 768px)");
 
