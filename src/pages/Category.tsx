@@ -18,7 +18,7 @@ export const Category = () => {
   return (
     <section className="py-8 col-span-10 col-start-2 col-end-12">
       <SectionTitle id="showcase">
-        {name.toUpperCase()}
+        {name?.toUpperCase()}
       </SectionTitle>
       <main className="py-8  grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 w-full">
         <DisplayCategory

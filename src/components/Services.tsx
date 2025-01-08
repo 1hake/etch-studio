@@ -4,6 +4,7 @@ import ServiceItem from "./ServiceItem";
 
 export const Services = () => {
   const { headers, loading, error } = useCategoriesHeader();
+  console.log("🚀 ~ Services ~ headers:", headers)
 
   if (loading) {
     return null
