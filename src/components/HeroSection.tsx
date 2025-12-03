@@ -1,9 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import useGeneralInfo from "../hooks/useGeneralInfo";
+import { useDarkMode } from "../hooks/useDarkMode";
+import lightHeroImage from "../images/etch_lamps.webp";
+import darkHeroImage from "../images/dark-hero.webp";
 
 export const HeroSection = () => {
   const { generalInfo, loading, error } = useGeneralInfo("A8ZgN0HqwSPofv5qL1JN");
+  const isDark = useDarkMode();
 
   if (loading) {
     return (
@@ -53,56 +57,40 @@ export const HeroSection = () => {
 
   return (
     <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Background image */}
-      {generalInfo?.image_en_tete && (
+      {/* Background images with smooth transition */}
+      <div className="absolute inset-0">
+        {/* Light mode background */}
         <div
-          className="absolute inset-0 bg-cover bg-no-repeat bg-center"
-          style={{ backgroundImage: `url(${generalInfo.image_en_tete})` }}
+          className={`absolute inset-0 bg-cover bg-no-repeat bg-center transition-opacity duration-1000 ease-in-out ${isDark ? 'opacity-0' : 'opacity-100'
+            }`}
+          style={{
+            backgroundImage: `url(${lightHeroImage})`
+          }}
         />
-      )}
+        {/* Dark mode background */}
+        <div
+          className={`absolute inset-0 bg-cover bg-no-repeat bg-center transition-opacity duration-1000 ease-in-out ${isDark ? 'opacity-100' : 'opacity-0'
+            }`}
+          style={{
+            backgroundImage: `url(${darkHeroImage})`
+          }}
+        />
+      </div>
 
       {/* Background overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/60 dark:from-black/70 dark:via-black/50 dark:to-black/70" />
 
       {/* Subtle pattern overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-accent-50/10 via-transparent to-primary-50/10 dark:from-accent-900/20 dark:via-transparent dark:to-primary-900/20" />
 
       {/* Main content */}
-      <div className="relative text-center max-w-4xl mx-auto px-6 animate-fade-in">
+      <div className="relative text-center max-w-4xl mx-auto px-6 animate-fade-in flex flex-col justify-end h-screen pb-24">
         {/* Logo */}
-        <div className="mb-8">
-          <Link
-            to="/"
-            className="inline-block group focus-ring rounded-xl p-4"
-          >
-            <div className="w-64 h-64 md:w-96 md:h-96 lg:w-[28rem] lg:h-[28rem] mx-auto bg-light-logo bg-no-repeat bg-center bg-contain transition-transform duration-300 group-hover:scale-105 filter drop-shadow-lg" />
-          </Link>
-        </div>
-
-        {/* Brand name */}
-
-
-
-
-        {/* CTA Button */}
-        <div className="flex justify-center animate-slide-up" style={{ animationDelay: '0.6s' }}>
+        <div className="mt-24">
           <a
             href="#services"
-            className="group relative p-4 bg-white/10 backdrop-blur-xl border border-white/30 hover:border-white/50 text-white rounded-full shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-110 hover:-translate-y-2 hover:bg-white/20"
+            className="inline-block group focus-ring rounded-xl p-4 cursor-pointer"
           >
-            <svg
-              className="w-8 h-8 transition-transform duration-300 group-hover:translate-y-1"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 14l-7 7m0 0l-7-7m7 7V3"
-              />
-            </svg>
+            <div className="w-64 h-64 md:w-96 md:h-96 lg:w-[28rem] lg:h-[28rem] mx-auto bg-dark-logo dark:bg-light-logo bg-no-repeat bg-center bg-contain transition-transform duration-300 group-hover:scale-105" />
           </a>
         </div>
       </div>

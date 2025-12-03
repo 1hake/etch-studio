@@ -7,6 +7,7 @@ import { getDownloadUrl } from "../utils/firebaseUtils";
 interface GeneralInfo {
   intro: string[];
   image_en_tete: string;
+  dark_image_en_tete?: string;
   phone: string;
   email: string;
   [key: string]: any;

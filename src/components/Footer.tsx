@@ -83,8 +83,18 @@ export const Footer = () => {
             © {new Date().getFullYear()} Etch Studio. Tous droits réservés.
           </p>
           <p className="text-caption text-white/60">
-            Développé avec ❤️ par Colin Champdavoine
+            Développé Colin Champdavoine
           </p>
+          <div>
+            <a
+              href="https://champdavoine.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-caption text-white/60 hover:text-white transition-colors duration-200"
+            >
+              champdavoine.com
+            </a>
+          </div>
         </div>
       </div>
     </footer>
