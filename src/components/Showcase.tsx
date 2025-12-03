@@ -56,7 +56,7 @@ export const ShowcaseIntro: React.FC<ShowcaseProps> = ({ limit }) => {
           const urls = await Promise.all(
             elements.map((element) => getDownloadUrl(element.url))
           );
-          
+
           // Create images for PhotoAlbum display
           const newImages: ExtendedPhoto[] = urls.map((url, index) => ({
             src: url, // PhotoAlbum expects 'src'
@@ -137,57 +137,58 @@ export const ShowcaseIntro: React.FC<ShowcaseProps> = ({ limit }) => {
             renderPhoto={({ photo, layout, wrapperStyle }) => {
               const extendedPhoto = photo as ExtendedPhoto;
               return (
-              <div
-                style={wrapperStyle}
-                className="group cursor-pointer"
-                onClick={() => handleImageClick(images.indexOf(extendedPhoto))}
-              >
-                <div className="relative overflow-hidden rounded-xl bg-surface dark:bg-dark-surface elevated-card hover-lift">
-                  <img
-                    src={extendedPhoto.src}
-                    alt={extendedPhoto.name || "Image"}
-                    style={{
-                      width: layout.width,
-                      height: layout.height,
-                      objectFit: "cover",
-                    }}
-                    className="transition-transform duration-500 group-hover:scale-110"
-                    loading="lazy"
-                  />
+                <div
+                  style={wrapperStyle}
+                  className="group cursor-pointer"
+                  onClick={() => handleImageClick(images.indexOf(extendedPhoto))}
+                >
+                  <div className="relative overflow-hidden rounded-xl bg-surface dark:bg-dark-surface elevated-card hover-lift">
+                    <img
+                      src={extendedPhoto.src}
+                      alt={extendedPhoto.name || "Image"}
+                      style={{
+                        width: layout.width,
+                        height: layout.height,
+                        objectFit: "cover",
+                      }}
+                      className="transition-transform duration-500 group-hover:scale-110"
+                      loading="lazy"
+                    />
 
-                  {/* Overlay with info */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="absolute bottom-0 left-0 right-0 p-4">
-                      <h3 className="text-body-lg font-semibold text-white mb-1">
-                        {extendedPhoto.name}
-                      </h3>
-                      {extendedPhoto.description && (
-                        <p className="text-body-sm text-white/90 line-clamp-2">
-                          {extendedPhoto.description}
-                        </p>
-                      )}
+                    {/* Overlay with info */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="absolute bottom-0 left-0 right-0 p-4">
+                        <h3 className="text-body-lg font-semibold text-white mb-1">
+                          {extendedPhoto.name}
+                        </h3>
+                        {extendedPhoto.description && (
+                          <p className="text-body-sm text-white/90 line-clamp-2">
+                            {extendedPhoto.description}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Zoom icon */}
+                    <div className="absolute top-4 right-4 w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transform scale-0 group-hover:scale-100 transition-all duration-300">
+                      <svg
+                        className="w-4 h-4 text-white"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
+                        />
+                      </svg>
                     </div>
                   </div>
-
-                  {/* Zoom icon */}
-                  <div className="absolute top-4 right-4 w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transform scale-0 group-hover:scale-100 transition-all duration-300">
-                    <svg
-                      className="w-4 h-4 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
-                      />
-                    </svg>
-                  </div>
                 </div>
-              </div>
-            )}}
+              )
+            }}
           />
         </div>
 
