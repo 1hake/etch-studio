@@ -12,3 +12,16 @@ export interface Image {
   size?: string; // Nouveau champ : taille
   price?: number; // Nouveau champ : prix
 }
+
+export interface Photo {
+  url: string;
+  width: number;
+  height: number;
+  name?: string;
+  description?: string;
+  related_images?: string[];
+  gif?: string;
+  materials?: string[];
+  size?: string;
+  price?: number;
+}

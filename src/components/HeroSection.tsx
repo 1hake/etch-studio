@@ -1,27 +1,142 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import useGeneralInfo from "../hooks/useGeneralInfo";
 
 export const HeroSection = () => {
-  return (
-    <div id="hero" className="flex items-center justify-center flex-col py-10">
-      <div className="text-center">
-        <Link to="/">
-          <div
-            alt="logo"
-            className="h-36 bg-dark-logo dark:bg-light-logo bg-no-repeat bg-center bg-contain "
-          ></div>
-          <h1 className=" text-2xl md:text-4xl mb-1 md:mb-3 text-black dark:text-white font-semibold">
+  const { generalInfo, loading, error } = useGeneralInfo("A8ZgN0HqwSPofv5qL1JN");
+
+  if (loading) {
+    return (
+      <section className="hero-gradient min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-accent-50/20 via-transparent to-primary-50/20 dark:from-accent-900/10 dark:via-transparent dark:to-primary-900/10" />
+        <div className="relative text-center max-w-4xl mx-auto px-6 animate-fade-in">
+          <div className="mb-8">
+            <div className="skeleton w-32 h-32 md:w-52 md:h-52 mx-auto rounded-xl" />
+          </div>
+          <div className="skeleton h-12 w-3/4 mx-auto mb-6" />
+          <div className="space-y-4 mb-8">
+            <div className="skeleton h-6 w-full" />
+            <div className="skeleton h-6 w-5/6 mx-auto" />
+          </div>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="skeleton h-12 w-48" />
+            <div className="skeleton h-12 w-32" />
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="hero-gradient min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-accent-50/20 via-transparent to-primary-50/20 dark:from-accent-900/10 dark:via-transparent dark:to-primary-900/10" />
+        <div className="relative text-center max-w-4xl mx-auto px-6">
+          <div className="mb-8">
+            <Link
+              to="/"
+              className="inline-block group focus-ring rounded-xl p-4"
+            >
+              <div className="w-32 h-32 md:w-52 md:h-52 mx-auto bg-dark-logo dark:bg-light-logo bg-no-repeat bg-center bg-contain transition-transform duration-300 group-hover:scale-105" />
+            </Link>
+          </div>
+          <h1 className="text-display-xl md:text-display-2xl font-bold text-text-primary dark:text-dark-text-primary mb-8">
             ETCH STUDIO.
           </h1>
-        </Link>
+          <p className="text-body-lg text-text-secondary dark:text-dark-text-secondary">
+            Erreur lors du chargement des informations
+          </p>
+        </div>
+      </section>
+    );
+  }
 
-        {/* <a
-          href="#works"
-          className="inline-block px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:text-md "
-        >
-          See Works
-        </a> */}
+  return (
+    <section className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      {/* Background image */}
+      {generalInfo?.image_en_tete && (
+        <div
+          className="absolute inset-0 bg-cover bg-no-repeat bg-center"
+          style={{ backgroundImage: `url(${generalInfo.image_en_tete})` }}
+        />
+      )}
+
+      {/* Background overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/60 dark:from-black/70 dark:via-black/50 dark:to-black/70" />
+
+      {/* Subtle pattern overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-accent-50/10 via-transparent to-primary-50/10 dark:from-accent-900/20 dark:via-transparent dark:to-primary-900/20" />
+
+      {/* Main content */}
+      <div className="relative text-center max-w-4xl mx-auto px-6 animate-fade-in">
+        {/* Logo */}
+        <div className="mb-8">
+          <Link
+            to="/"
+            className="inline-block group focus-ring rounded-xl p-4"
+          >
+            <div className="w-64 h-64 md:w-96 md:h-96 lg:w-[28rem] lg:h-[28rem] mx-auto bg-light-logo bg-no-repeat bg-center bg-contain transition-transform duration-300 group-hover:scale-105 filter drop-shadow-lg" />
+          </Link>
+        </div>
+
+        {/* Brand name */}
+
+
+
+
+        {/* CTA Buttons */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 animate-slide-up" style={{ animationDelay: '0.6s' }}>
+          <a
+            href="#showcase"
+            className="group relative px-8 py-4 bg-white hover:bg-gray-50 text-black font-semibold rounded-2xl shadow-xl hover:shadow-2xl transform transition-all duration-300 hover:scale-105 hover:-translate-y-1 w-full sm:w-auto overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="relative flex items-center justify-center">
+              <span className="mr-2">Découvrir les œuvres</span>
+              <svg
+                className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"
+                />
+              </svg>
+            </div>
+          </a>
+
+          <a
+            href="#contact"
+            className="group relative px-8 py-4 bg-white/10 backdrop-blur-xl border border-white/30 hover:border-white/50 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:bg-white/20 w-full sm:w-auto overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="relative flex items-center justify-center">
+              <span className="mr-2">Nous contacter</span>
+              <svg
+                className="w-5 h-5 transition-transform duration-300 group-hover:scale-110"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                />
+              </svg>
+            </div>
+          </a>
+        </div>
       </div>
-    </div>
+
+      {/* Decorative elements */}
+      <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-accent-200/20 dark:bg-accent-800/30 rounded-full blur-xl animate-pulse" />
+      <div className="absolute bottom-1/4 right-1/4 w-48 h-48 bg-primary-200/20 dark:bg-primary-800/30 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }} />
+    </section>
   );
 };
