@@ -3,6 +3,7 @@ import PhotoAlbum, { Photo } from "react-photo-album";
 
 import useDatabase from "../hooks/useDatabase";
 import useMediaQuery from "../hooks/useMediaQuery";
+import { Image } from "../types/types";
 import { getDownloadUrl } from "../utils/firebaseUtils";
 import { MyDialog } from "./Panel";
 import { SectionTitle } from "./SectionTitle";
@@ -41,6 +42,7 @@ const randomlySliceNElems = (arr: any[], n: number) => {
 
 export const ShowcaseIntro: React.FC<ShowcaseProps> = ({ limit }) => {
   const [images, setImages] = useState<ExtendedPhoto[]>([]);
+  const [originalImages, setOriginalImages] = useState<Image[]>([]);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
     null
   );
@@ -54,8 +56,10 @@ export const ShowcaseIntro: React.FC<ShowcaseProps> = ({ limit }) => {
           const urls = await Promise.all(
             elements.map((element) => getDownloadUrl(element.url))
           );
+          
+          // Create images for PhotoAlbum display
           const newImages: ExtendedPhoto[] = urls.map((url, index) => ({
-            src: url, // PhotoAlbum expects 'src', not 'url'
+            src: url, // PhotoAlbum expects 'src'
             width: elements[index].width,
             height: elements[index].height,
             name: elements[index].name,
@@ -66,7 +70,25 @@ export const ShowcaseIntro: React.FC<ShowcaseProps> = ({ limit }) => {
             size: elements[index].size || "",
             price: elements[index].price || 0,
           }));
+
+          // Create original images for modal (with 'url' property)
+          const originalImagesData: Image[] = urls.map((url, index) => ({
+            url: url, // Modal expects 'url'
+            width: elements[index].width,
+            height: elements[index].height,
+            name: elements[index].name,
+            description: elements[index].description,
+            related_images: elements[index].related_images || [],
+            gif: elements[index].gif || "",
+            materials: elements[index].materials || [],
+            size: elements[index].size || "",
+            price: elements[index].price || 0,
+            categories: [],
+            published: true,
+          }));
+
           setImages(limit ? randomlySliceNElems(newImages, 6) : newImages);
+          setOriginalImages(limit ? randomlySliceNElems(originalImagesData, 6) : originalImagesData);
         } catch (error) {
           console.error("Error fetching image URLs:", error);
         }
@@ -197,7 +219,7 @@ export const ShowcaseIntro: React.FC<ShowcaseProps> = ({ limit }) => {
       {selectedImageIndex !== null && (
         <MyDialog
           isOpen={selectedImageIndex !== null}
-          currentPhoto={images[selectedImageIndex]}
+          currentPhoto={originalImages[selectedImageIndex]}
           onClose={() => setSelectedImageIndex(null)}
         />
       )}
