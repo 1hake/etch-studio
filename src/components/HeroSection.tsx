@@ -83,14 +83,14 @@ export const HeroSection = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-accent-50/10 via-transparent to-primary-50/10 dark:from-accent-900/20 dark:via-transparent dark:to-primary-900/20" />
 
       {/* Main content */}
-      <div className="relative text-center max-w-4xl mx-auto px-6 animate-fade-in flex flex-col justify-end h-screen pb-24">
+      <div className="relative text-center max-w-4xl mx-auto px-6 animate-fade-in flex flex-col justify-end h-screen pb-48 md:pb-24">
         {/* Logo */}
-        <div className="mt-24">
+        <div className="mt-8 md:mt-24">
           <a
             href="#services"
             className="inline-block group rounded-xl p-4 cursor-pointer"
           >
-            <div className="w-64 h-64 md:w-96 md:h-96 lg:w-[28rem] lg:h-[28rem] mx-auto bg-dark-logo dark:bg-light-logo bg-no-repeat bg-center bg-contain transition-transform duration-700 ease-in-out group-hover:scale-105" />
+            <div className="w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[28rem] lg:h-[28rem] mx-auto bg-dark-logo dark:bg-light-logo bg-no-repeat bg-center bg-contain transition-transform duration-700 ease-in-out group-hover:scale-105" />
           </a>
         </div>
       </div>
