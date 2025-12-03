@@ -7,7 +7,7 @@ export const Services = () => {
 
   if (loading) {
     return (
-      <section className="section-padding">
+      <section id="services" className="section-padding">
         <div className="container-custom">
           <SectionTitle>Nos Créations</SectionTitle>
           <div className="grid-responsive">
@@ -22,7 +22,7 @@ export const Services = () => {
 
   if (error) {
     return (
-      <section className="section-padding">
+      <section id="services" className="section-padding">
         <div className="container-custom text-center">
           <p className="text-body-lg text-text-secondary dark:text-dark-text-secondary">
             Erreur lors du chargement des catégories
@@ -33,7 +33,7 @@ export const Services = () => {
   }
 
   return (
-    <section className="section-padding">
+    <section id="services" className="section-padding">
       <div className="container-custom">
         <SectionTitle
           subtitle="Plusieurs catégories de créations artisanales à découvrir"

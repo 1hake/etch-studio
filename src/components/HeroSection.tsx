@@ -84,52 +84,25 @@ export const HeroSection = () => {
 
 
 
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 animate-slide-up" style={{ animationDelay: '0.6s' }}>
+        {/* CTA Button */}
+        <div className="flex justify-center animate-slide-up" style={{ animationDelay: '0.6s' }}>
           <a
-            href="#showcase"
-            className="group relative px-8 py-4 bg-white hover:bg-gray-50 text-black font-semibold rounded-2xl shadow-xl hover:shadow-2xl transform transition-all duration-300 hover:scale-105 hover:-translate-y-1 w-full sm:w-auto overflow-hidden"
+            href="#services"
+            className="group relative p-4 bg-white/10 backdrop-blur-xl border border-white/30 hover:border-white/50 text-white rounded-full shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-110 hover:-translate-y-2 hover:bg-white/20"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            <div className="relative flex items-center justify-center">
-              <span className="mr-2">Découvrir les œuvres</span>
-              <svg
-                className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 7l5 5m0 0l-5 5m5-5H6"
-                />
-              </svg>
-            </div>
-          </a>
-
-          <a
-            href="#contact"
-            className="group relative px-8 py-4 bg-white/10 backdrop-blur-xl border border-white/30 hover:border-white/50 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:bg-white/20 w-full sm:w-auto overflow-hidden"
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            <div className="relative flex items-center justify-center">
-              <span className="mr-2">Nous contacter</span>
-              <svg
-                className="w-5 h-5 transition-transform duration-300 group-hover:scale-110"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                />
-              </svg>
-            </div>
+            <svg
+              className="w-8 h-8 transition-transform duration-300 group-hover:translate-y-1"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 14l-7 7m0 0l-7-7m7 7V3"
+              />
+            </svg>
           </a>
         </div>
       </div>

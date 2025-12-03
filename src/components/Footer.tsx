@@ -14,7 +14,7 @@ export const Footer = () => {
               <h3 className="text-display-sm font-bold">ETCH STUDIO</h3>
             </div>
             <p className="text-body-md text-white/80 text-balance">
-              Artisanat d'exception et créations uniques alliant tradition et innovation.
+              Sculptures, lampes, objets décoratifs.
             </p>
           </div>
 
