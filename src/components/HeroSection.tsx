@@ -39,9 +39,9 @@ export const HeroSection = () => {
           <div className="mb-8">
             <Link
               to="/"
-              className="inline-block group focus-ring rounded-xl p-4"
+              className="inline-block group rounded-xl p-4"
             >
-              <div className="w-32 h-32 md:w-52 md:h-52 mx-auto bg-dark-logo dark:bg-light-logo bg-no-repeat bg-center bg-contain transition-transform duration-300 group-hover:scale-105" />
+              <div className="w-32 h-32 md:w-52 md:h-52 mx-auto bg-dark-logo dark:bg-light-logo bg-no-repeat bg-center bg-contain transition-transform duration-700 ease-in-out group-hover:scale-105" />
             </Link>
           </div>
           <h1 className="text-display-xl md:text-display-2xl font-bold text-text-primary dark:text-dark-text-primary mb-8">
@@ -88,9 +88,9 @@ export const HeroSection = () => {
         <div className="mt-24">
           <a
             href="#services"
-            className="inline-block group focus-ring rounded-xl p-4 cursor-pointer"
+            className="inline-block group rounded-xl p-4 cursor-pointer"
           >
-            <div className="w-64 h-64 md:w-96 md:h-96 lg:w-[28rem] lg:h-[28rem] mx-auto bg-dark-logo dark:bg-light-logo bg-no-repeat bg-center bg-contain transition-transform duration-300 group-hover:scale-105" />
+            <div className="w-64 h-64 md:w-96 md:h-96 lg:w-[28rem] lg:h-[28rem] mx-auto bg-dark-logo dark:bg-light-logo bg-no-repeat bg-center bg-contain transition-transform duration-700 ease-in-out group-hover:scale-105" />
           </a>
         </div>
       </div>

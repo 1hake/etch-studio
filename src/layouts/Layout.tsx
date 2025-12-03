@@ -65,9 +65,9 @@ export const Layout = ({ children }: LayoutProps) => {
             {/* Logo */}
             <Link
               to="/"
-              className="flex items-center space-x-2 group focus-ring rounded-lg"
+              className="flex items-center space-x-2 group focus:outline-none rounded-lg"
             >
-              <div className="w-24 h-24 bg-dark-logo dark:bg-light-logo bg-no-repeat bg-center bg-contain transition-transform duration-200 group-hover:scale-105" />
+              <div className="w-24 h-24 bg-dark-logo dark:bg-light-logo bg-no-repeat bg-center bg-contain transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-lg group-hover:brightness-110" />
 
             </Link>
 
@@ -100,12 +100,27 @@ export const Layout = ({ children }: LayoutProps) => {
             <button
               type="button"
               onClick={handleThemeSwitch}
-              className="p-2 rounded-lg bg-background-secondary dark:bg-dark-background-secondary border border-border dark:border-dark-border hover:bg-background-tertiary dark:hover:bg-dark-background-tertiary transition-colors duration-200 focus-ring"
+              className="relative w-12 h-6 rounded-full bg-gray-300 dark:bg-gray-600 transition-colors duration-300 ease-in-out focus:outline-none hover:bg-gray-400 dark:hover:bg-gray-500"
               aria-label="Toggle theme"
             >
-              <span className="text-lg">
-                {theme === "dark" ? "🌙" : "🌞"}
-              </span>
+              {/* Toggle Circle */}
+              <div
+                className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white dark:bg-gray-200 rounded-full shadow-lg transform transition-transform duration-300 ease-in-out flex items-center justify-center ${theme === "dark" ? "translate-x-6" : "translate-x-0"
+                  }`}
+              >
+                {/* Icon */}
+                <div className="w-3 h-3 flex items-center justify-center">
+                  {theme === "dark" ? (
+                    <svg className="w-2.5 h-2.5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
+                    </svg>
+                  ) : (
+                    <svg className="w-2.5 h-2.5 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                    </svg>
+                  )}
+                </div>
+              </div>
             </button>
           </div>
         </div>
