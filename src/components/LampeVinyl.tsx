@@ -2,8 +2,13 @@ import React from "react";
 import { SectionTitle } from "./SectionTitle";
 import Button from "./Button";
 import vinylImage from "../images/vinyle.jpeg";
+import vinylImageDark from "../images/vinyle-dark.jpeg";
+import { useDarkMode } from "../hooks/useDarkMode";
 
 export const LampeVinyl = () => {
+    const isDark = useDarkMode();
+    const currentImage = isDark ? vinylImageDark : vinylImage;
+
     const handleOrder = () => {
         // Handle order logic here - could open a contact form, redirect to a form, etc.
         console.log("Order lamp clicked");
@@ -26,9 +31,9 @@ export const LampeVinyl = () => {
                             <div className="relative lg:w-1/2">
                                 <div className="relative h-96 lg:h-[600px] overflow-hidden">
                                     <img
-                                        src={vinylImage}
+                                        src={currentImage}
                                         alt="Lampe Vinyl colorée"
-                                        className="w-full h-full object-cover object-center"
+                                        className="w-full h-full object-cover object-center transition-all duration-[1500ms] ease-in-out"
                                     />
                                 </div>
                             </div>
