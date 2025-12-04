@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useGeneralInfo from "../hooks/useGeneralInfo";
 import { useDarkMode } from "../hooks/useDarkMode";
@@ -8,6 +8,36 @@ import darkHeroImage from "../images/dark-hero.webp";
 export const HeroSection = () => {
   const { generalInfo, loading, error } = useGeneralInfo("A8ZgN0HqwSPofv5qL1JN");
   const isDark = useDarkMode();
+  const [hasScrolled, setHasScrolled] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Track scroll to show/hide switch
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 20);
+
+      if (scrollY > 10 && !hasScrolled) {
+        setHasScrolled(true);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [hasScrolled]);
+
+  const handleThemeSwitch = () => {
+    const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+    localStorage.setItem('theme', newTheme);
+
+    // Update document class
+    if (newTheme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  };
 
   if (loading) {
     return (
@@ -83,9 +113,9 @@ export const HeroSection = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-accent-50/10 via-transparent to-primary-50/10 dark:from-accent-900/20 dark:via-transparent dark:to-primary-900/20" />
 
       {/* Main content */}
-      <div className="relative text-center max-w-4xl mx-auto px-6 animate-fade-in flex flex-col justify-end h-screen pb-48 md:pb-24">
+      <div className="relative text-center max-w-4xl mx-auto px-6 animate-fade-in flex flex-col justify-center h-screen">
         {/* Logo */}
-        <div className="mt-8 md:mt-24">
+        <div className="">
           <a
             href="#services"
             className="inline-block group rounded-xl p-4 cursor-pointer"
@@ -94,6 +124,52 @@ export const HeroSection = () => {
           </a>
         </div>
       </div>
+
+      {/* Fixed CTA Theme Switch - Bottom of screen */}
+      {!isScrolled && (
+        <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-40 animate-fade-in">
+          <div className="flex flex-col items-center">
+            <div className="relative">
+              {/* Toggle switch */}
+              <button
+                type="button"
+                onClick={handleThemeSwitch}
+                className={`relative w-20 h-10 rounded-full transition-all duration-300 ease-in-out focus:outline-none ${isDark
+                  ? "bg-gradient-to-r from-yellow-400 to-orange-500 shadow-lg shadow-yellow-400/30"
+                  : "bg-gray-300 hover:bg-gray-400 shadow-lg"
+                  }`}
+                aria-label="Toggle theme"
+              >
+                {/* Toggle Circle */}
+                <div
+                  className={`absolute top-1 left-1 w-8 h-8 bg-white rounded-full shadow-lg transform transition-transform duration-300 ease-in-out flex items-center justify-center ${isDark
+                    ? "translate-x-10"
+                    : "translate-x-0"
+                    }`}
+                >
+                  {/* Simple icon */}
+                  <div className="w-4 h-4 flex items-center justify-center">
+                    {isDark ? (
+                      <svg className="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
+                      </svg>
+                    ) : (
+                      <svg className="w-4 h-4 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                      </svg>
+                    )}
+                  </div>
+                </div>
+              </button>
+            </div>
+
+            {/* Encouraging text */}
+            <p className="text-body-md font-medium text-text-secondary dark:text-dark-text-secondary/90 animate-pulse">
+              {isDark ? "Éteindre la lumière" : "Allumer la lumière"}
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* Decorative elements */}
       <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-accent-200/20 dark:bg-accent-800/30 rounded-full blur-xl animate-pulse" />

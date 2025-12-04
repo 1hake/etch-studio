@@ -7,7 +7,7 @@ export const Footer = () => {
     return (
       <footer id="contact" className="bg-primary-900 dark:bg-primary-950 text-white">
         <div className="section-padding">
-          <div className="container-custom">
+          <div className="">
             {/* About/Intro Section Loading */}
             <div className="space-y-4 max-w-6xl mx-auto mb-16">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
