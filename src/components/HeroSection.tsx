@@ -113,42 +113,43 @@ export const HeroSection = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-accent-50/10 via-transparent to-primary-50/10 dark:from-accent-900/20 dark:via-transparent dark:to-primary-900/20" />
 
       {/* Main content */}
-      <div className="relative text-center max-w-4xl mx-auto px-6 animate-fade-in flex flex-col justify-center h-screen">
+      <div className="relative text-center max-w-4xl mx-auto px-6 animate-fade-in flex flex-col justify-start h-screen pt-0 md:-mt-40">
         {/* Logo */}
         <div className="">
           <a
             href="#services"
             className="inline-block group rounded-xl p-4 cursor-pointer"
           >
-            <div className="w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[28rem] lg:h-[28rem] mx-auto bg-dark-logo dark:bg-light-logo bg-no-repeat bg-center bg-contain transition-transform duration-700 ease-in-out group-hover:scale-105" />
+            <div className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 mx-auto bg-dark-logo dark:bg-light-logo bg-no-repeat bg-center bg-contain transition-transform duration-700 ease-in-out group-hover:scale-105" />
           </a>
         </div>
       </div>
 
-      {/* Fixed CTA Theme Switch - Bottom of screen */}
+      {/* Fixed CTA Theme Switch - Close to center */}
       {!isScrolled && (
-        <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-40 animate-fade-in">
+        <div className="fixed top-[65%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-40 animate-fade-in">
           <div className="flex flex-col items-center">
             <div className="relative">
               {/* Toggle switch */}
               <button
                 type="button"
                 onClick={handleThemeSwitch}
-                className={`relative w-20 h-10 rounded-full transition-all duration-300 ease-in-out focus:outline-none ${isDark
+                className={`relative w-16 h-8 rounded-full transition-all duration-300 ease-in-out focus:outline-none ${isDark
                   ? "bg-gradient-to-r from-yellow-400 to-orange-500 shadow-lg shadow-yellow-400/30"
-                  : "bg-gray-300 hover:bg-gray-400 shadow-lg"
+                  : "shadow-lg"
                   }`}
+                style={!isDark ? { backgroundColor: '#204082' } : {}}
                 aria-label="Toggle theme"
               >
                 {/* Toggle Circle */}
                 <div
-                  className={`absolute top-1 left-1 w-8 h-8 bg-white rounded-full shadow-lg transform transition-transform duration-300 ease-in-out flex items-center justify-center ${isDark
-                    ? "translate-x-10"
+                  className={`absolute top-0.5 left-0.5 w-7 h-7 bg-white rounded-full shadow-lg transform transition-transform duration-300 ease-in-out flex items-center justify-center ${isDark
+                    ? "translate-x-8"
                     : "translate-x-0"
                     }`}
                 >
                   {/* Simple icon */}
-                  <div className="w-4 h-4 flex items-center justify-center">
+                  <div className="w-3 h-3 flex items-center justify-center">
                     {isDark ? (
                       <svg className="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
