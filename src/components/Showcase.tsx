@@ -46,6 +46,7 @@ export const ShowcaseIntro: React.FC<ShowcaseProps> = ({ limit }) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
     null
   );
+  const [showAll, setShowAll] = useState<boolean>(false);
   const elements: FirebaseElement[] = useDatabase("images", false);
   const isMobile = useMediaQuery("(max-width: 768px)");
 
@@ -87,8 +88,15 @@ export const ShowcaseIntro: React.FC<ShowcaseProps> = ({ limit }) => {
             published: true,
           }));
 
-          setImages(limit ? randomlySliceNElems(newImages, 6) : newImages);
-          setOriginalImages(limit ? randomlySliceNElems(originalImagesData, 6) : originalImagesData);
+          // Randomize the order of both arrays
+          const shuffledIndices = Array.from({ length: newImages.length }, (_, i) => i)
+            .sort(() => Math.random() - 0.5);
+
+          const shuffledImages = shuffledIndices.map(i => newImages[i]);
+          const shuffledOriginalImages = shuffledIndices.map(i => originalImagesData[i]);
+
+          setImages(shuffledImages);
+          setOriginalImages(shuffledOriginalImages);
         } catch (error) {
           console.error("Error fetching image URLs:", error);
         }
@@ -101,6 +109,14 @@ export const ShowcaseIntro: React.FC<ShowcaseProps> = ({ limit }) => {
   const handleImageClick = useCallback((index: number) => {
     setSelectedImageIndex(index);
   }, []);
+
+  const handleToggleView = useCallback(() => {
+    setShowAll(!showAll);
+  }, [showAll]);
+
+  const displayImages = limit
+    ? (showAll ? images : images.slice(0, 6))
+    : images;
 
   if (elements.length === 0) {
     return (
@@ -116,8 +132,6 @@ export const ShowcaseIntro: React.FC<ShowcaseProps> = ({ limit }) => {
       </section>
     );
   }
-
-  const displayImages = limit ? randomlySliceNElems(images, 6) : images;
 
   return (
     <section id="showcase" className="section-padding bg-background-secondary dark:bg-dark-background-secondary">
@@ -136,11 +150,12 @@ export const ShowcaseIntro: React.FC<ShowcaseProps> = ({ limit }) => {
             spacing={16}
             renderPhoto={({ photo, layout, wrapperStyle }) => {
               const extendedPhoto = photo as ExtendedPhoto;
+              const originalIndex = images.findIndex(img => img.src === extendedPhoto.src);
               return (
                 <div
                   style={wrapperStyle}
                   className="group cursor-pointer"
-                  onClick={() => handleImageClick(images.indexOf(extendedPhoto))}
+                  onClick={() => handleImageClick(originalIndex)}
                 >
                   <div className="relative overflow-hidden rounded-xl bg-surface dark:bg-dark-surface elevated-card hover-lift">
                     <img
@@ -194,13 +209,13 @@ export const ShowcaseIntro: React.FC<ShowcaseProps> = ({ limit }) => {
 
         {limit && images.length > 6 && (
           <div className="text-center mt-12">
-            <a
-              href="#"
+            <button
+              onClick={handleToggleView}
               className="btn-secondary hover-lift inline-flex items-center"
             >
-              Voir tous les projets
+              {showAll ? "Voir moins" : "Voir tous les projets"}
               <svg
-                className="w-4 h-4 ml-2"
+                className={`w-4 h-4 ml-2 transition-transform duration-300 ${showAll ? 'rotate-180' : ''}`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -209,10 +224,10 @@ export const ShowcaseIntro: React.FC<ShowcaseProps> = ({ limit }) => {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M9 5l7 7-7 7"
+                  d="M19 9l-7 7-7-7"
                 />
               </svg>
-            </a>
+            </button>
           </div>
         )}
       </div>

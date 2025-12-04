@@ -10,7 +10,7 @@ export const Home = () => {
     <>
       {/* <Showcase limit={true} /> */}
       <Services />
-      <ShowcaseIntro></ShowcaseIntro>
+      <ShowcaseIntro limit={true}></ShowcaseIntro>
       {/* <Works /> */}
       {/* <ImagePanel /> */}
       {/* <About /> */}
