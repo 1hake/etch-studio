@@ -9,6 +9,7 @@
     "deploy": "vite build && mv dist/ etch/ && scp -r -p etch root@gobc.fr:/var/www/"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "@fortawesome/free-regular-svg-icons": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",

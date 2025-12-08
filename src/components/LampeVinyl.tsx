@@ -4,14 +4,34 @@ import Button from "./Button";
 import vinylImage from "../images/vinyle.jpeg";
 import vinylImageDark from "../images/vinyle-dark.jpeg";
 import { useDarkMode } from "../hooks/useDarkMode";
+import useGeneralInfo from "../hooks/useGeneralInfo";
 
 export const LampeVinyl = () => {
     const isDark = useDarkMode();
+    const { generalInfo, loading } = useGeneralInfo("A8ZgN0HqwSPofv5qL1JN");
+    console.log("🚀 ~ LampeVinyl ~ generalInfo:", generalInfo)
     const currentImage = isDark ? vinylImageDark : vinylImage;
 
     const handleOrder = () => {
-        // Handle order logic here - could open a contact form, redirect to a form, etc.
-        console.log("Order lamp clicked");
+        // Generate mailto link for lamp order
+        const subject = "Commande Lampe Vinyl Personnalisée";
+        const body = `Bonjour,
+
+Je souhaite commander une lampe vinyl personnalisée.
+
+Produit : Lampe vinyl personnalisée
+Description : Lampe vinyle avec couleur personnalisée pour décoration d'intérieur
+
+Merci de me recontacter pour discuter des détails (couleur souhaitée, délais, prix, etc.).
+
+Cordialement`;
+
+        if (generalInfo?.email) {
+            const mailtoLink = `mailto:${generalInfo.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = mailtoLink;
+        } else {
+            console.error("Email address not available");
+        }
     };
 
     return (
@@ -55,8 +75,9 @@ export const LampeVinyl = () => {
                                         variant="primary"
                                         size="lg"
                                         className="w-full sm:w-auto bg-black text-white hover:bg-gray-800 border-black transition-all duration-300"
+                                        disabled={loading || !generalInfo?.email}
                                     >
-                                        Commander maintenant
+                                        {loading ? "Chargement..." : "Commander maintenant"}
                                     </Button>
                                 </div>
                             </div>
